@@ -96,9 +96,46 @@ srun -n 1 perf stat ./Chem281P2 --blas
 
 perf will output various statistics related to the run, including time measurements, context switches, cache misses, and branch mispredictions. Use perf to examine cache misses and analyze the performance behavior between different implementations of matrix multiplication.
 
+## Final Overall Results 
+
+To evaluate the performance of the accumulation algorithm, we ran the code using different numbers of threads and compared the execution times. The results are as follows:
+
+Running on 1 thread took 3130 microseconds.
+Running on 2 threads took 2981 microseconds.
+Running on 3 threads took 2899 microseconds.
+Running on 4 threads took 3218 microseconds.
+Running on 5 threads took 3272 microseconds.
+Running on 6 threads took 3442 microseconds.
+Running on 7 threads took 4025 microseconds.
+Running on 8 threads took 3520 microseconds.
+From the results, it can be observed that running the algorithm on 3 threads resulted in the shortest execution time compared to other thread counts.
+
+### Scalability
+As the number of threads increased, the execution time generally increased as well. This indicates that the code's scalability is not optimal, as adding more threads did not result in a proportional reduction in execution time. The overhead incurred by parallelization and potential contention for shared resources may have contributed to this behavior.
+
+### Algorithm Characteristics
+Based on the observations, the algorithm appears to be compute-bound rather than memory-bandwidth bound. This is evident from the increasing execution time as more threads are added. The parallelization aims to distribute the computational workload across multiple threads, and the limiting factor becomes the compute resources available.
+
+### Matrix Multiplication Implementations
+To analyze the performance behavior of different matrix multiplication implementations, we utilized the perf tool to measure cache misses and other performance statistics. We compared three implementations: matmuloop, tiled, and cblas_dgemm.
+
+### Performance Findings
+After examining the performance statistics, including L1 and L2 cache miss ratios, we observed the following:
+
+The tiled implementation showed the best performance among the three implementations. It demonstrated lower L2 miss ratios, indicating better utilization of cache memory.
+Both the matmuloop and cblas_dgemm implementations had comparable L2 miss ratios, suggesting similar cache efficiency.
+The instruction cycles were also comparable between cblas_dgemm and the tiled implementation, while the matmuloop implementation performed the worst in this regard.
+Based on these findings, we conclude that the tiled matrix multiplication implementation exhibits the best performance characteristics. It effectively leverages cache memory, resulting in fewer cache misses and improved execution time. However, further analysis is required to understand the impact of different implementations on overall system performance and resource utilization.
+
 ## Conclusion
 Upon completing the programming assignments, provide a report addressing the following topics:
 Overhead incurred by parallelization
 Scalability of the code with increasing thread count
 Comparison of different matrix multiplication implementations
 Findings from perf analysis
+
+In conclusion, the accumulation algorithm demonstrated increased execution time with the addition of more threads, indicating suboptimal scalability. The algorithm appeared to be compute-bound due to parallelization.
+
+Among the matrix multiplication implementations, the tiled implementation outperformed the others in terms of cache efficiency and execution time. It showed lower cache miss ratios and comparable instruction cycles, suggesting better overall performance. However, further analysis and benchmarking may be necessary to assess the impact on the overall system and optimize performance further.
+
+

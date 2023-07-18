@@ -1,4 +1,4 @@
-# Project 1: Parallel implementation of vector accumulation
+# Part 1: Parallel implementation of vector accumulation
 Introduction
 This project focuses on applying parallel programming skills using OpenMP to parallelize the accumulation of entries in a vector. The problem involves computing the sum of entries in a vector according to the mathematical formula: xi = ∑yk for i ranging from 0 to N-1. The provided code Chem281P1.cpp implements a serial version of the accumulation algorithm using a recurrence relation. The goal is to parallelize this algorithm and evaluate its performance.
 
@@ -35,12 +35,12 @@ How does the code scale as the number of threads increases?
 Is this algorithm compute-bound or memory-bandwidth bound?
 
 
-# Project 2: Performance - Matrix Matrix multiplication
+# Part 2: Performance - Matrix Matrix multiplication
 
 ## Introduction
 In this project, the performance of matrix multiplication algorithms will be analyzed. The goal is to study the impact of memory access patterns and programming details on algorithm performance. The provided code Chem281P2.cpp contains three different matrix multiplication algorithms that need to be implemented and evaluated.
 
-## Problem 1: matmuloop
+## 1: matmuloop
 The first algorithm, matmuloop, requires the reordering of loops i, j, and k for optimal performance. The code should be parallelized by identifying and parallelizing loops that do not create potential data dependency errors. A scalability study should be performed using 1, 2, 4, and 8 cores.
 
 To run this algorithm, use the following command:
@@ -49,7 +49,7 @@ To run this algorithm, use the following command:
 ./Chem281P2 --loop --threads <num>
 Replace <num> with the desired number of threads.
 ```
-## Problem 2: matmultile
+## 2: matmultile
 The matmultile algorithm improves performance by using tiling techniques to enhance memory locality. The outer loop (partitioning the matrix into tiles) is already implemented. The task is to implement the inner loop (computing the matrix product for each tile) and parallelize it. Based on the experience from Problem 1, identify which loop(s) should be parallelized. Perform a scalability study on 1, 2, 4, and 8 processors.
 
 To run this algorithm, use the following command:
@@ -59,7 +59,7 @@ To run this algorithm, use the following command:
 
 You can set one, two, or three parameters for the tile sizes. Use power of 2 values for the <num> parameter.
 
-## Problem 3: matrix vector product using CBLAS
+## 3: matrix vector product using CBLAS
 This problem involves implementing the matrix-vector product using the CBLAS routine cblas_dgemm. Compare the execution time of this routine with the execution time of the handwritten code. To run this routine, use the following command:
 
 ```
@@ -85,7 +85,7 @@ This will produce the executable file Chem281P2.
 
 Compile your code on the login shell, and then get an interactive shell through the Perlmutter queuing system using the salloc command. You can run your code using srun with appropriate options.
 
-## Problem 4: Performance Analysis using perf
+## 4: Performance Analysis using perf
 Use the perf tool to profile the different code versions. For example:
 ```
 bash
